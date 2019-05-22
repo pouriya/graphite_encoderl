@@ -85,7 +85,13 @@ encode_key([Char|_]=Key) when erlang:is_integer(Char) ->
     Key;
 
 encode_key(Key) when erlang:is_atom(Key) ->
-    erlang:atom_to_list(Key).
+    erlang:atom_to_list(Key);
+
+encode_key([Key]) ->
+    [encode_key(Key)];
+
+encode_key([Key|Keys]) ->
+    [encode_key(Key), "." | encode_key(Keys)].
 
 
 encode_value(Value) when erlang:is_float(Value) ->
