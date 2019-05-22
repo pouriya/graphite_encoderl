@@ -91,4 +91,5 @@ end_per_testcase(_TestCase, _Cfg) ->
 
     Data2 = #{key => 3.14000000},
     ?assertMatch("key 3.14 " ++ _, graphite_encoderl:encode(Data2, #{return_type => unsafe_string})),
+    ?assertEqual("foo.bar.baz 10 0\n", graphite_encoderl:encode({[foo, "bar", <<"baz">>], 10, 0}, #{return_type => string})),
     ok.
